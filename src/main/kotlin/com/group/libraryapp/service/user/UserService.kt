@@ -24,7 +24,7 @@ class UserService(
     @Transactional(readOnly = true)
     fun getUsers(): List<UserResponse> {
         return userRepository.findAll()
-            .map { user -> UserResponse(user) }
+            .map { user -> UserResponse.of(user) }
         // .map { UserResponse(it) } // it 으로 참조
         // .map(::UserResponse) // 생성자 호출 (Java: UserResponse::new)
     }
