@@ -51,7 +51,12 @@ class BookServiceTest @Autowired constructor(
     fun testLoanBookTest() {
         // given
         bookRepository.save(Book("이상한 나라의 앨리스"))
-        val savedUser = userRepository.save(User("litsynp", null))
+        val savedUser = userRepository.save(
+            User(
+                "litsynp",
+                null
+            )
+        )
         val request = BookLoanRequest("litsynp", "이상한 나라의 앨리스")
 
         // when
@@ -70,7 +75,12 @@ class BookServiceTest @Autowired constructor(
     fun loanBookFailTest() {
         // given
         bookRepository.save(Book("이상한 나라의 앨리스"))
-        val savedUser = userRepository.save(User("litsynp", null))
+        val savedUser = userRepository.save(
+            User(
+                "litsynp",
+                null
+            )
+        )
         userLoanHistoryRepository.save(UserLoanHistory(savedUser, "이상한 나라의 앨리스", false))
         val request = BookLoanRequest("litsynp", "이상한 나라의 앨리스")
 
@@ -86,7 +96,12 @@ class BookServiceTest @Autowired constructor(
     @DisplayName("책 반납이 정상 동작한다")
     fun returnBookTest() {
         // given
-        val savedUser = userRepository.save(User("litsynp", null))
+        val savedUser = userRepository.save(
+            User(
+                "litsynp",
+                null
+            )
+        )
         userLoanHistoryRepository.save(UserLoanHistory(savedUser, "이상한 나라의 앨리스", false))
         val request = BookReturnRequest("litsynp", "이상한 나라의 앨리스")
 
