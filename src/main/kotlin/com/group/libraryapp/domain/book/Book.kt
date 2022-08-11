@@ -9,6 +9,8 @@ import javax.persistence.Id
 class Book(
     val name: String,
 
+    val type: String,
+
     // 디폴트 파라미터는 관례상 가장 밑에 위치
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +20,23 @@ class Book(
     init {
         if (name.isBlank()) {
             throw IllegalArgumentException("이름은 비어 있을 수 없습니다")
+        }
+    }
+
+    // 도메인 레이어가 변경돼도 테스트 코드를 수정할 필요가 없음
+    companion object {
+        // 이런 테스트에 이용할 객체를 만드는 함수를 object mother라고 부른다
+        // -> 생겨난 테스트용 객체는 text fixture이라고 한다.
+        fun fixture(
+            name: String = "책 이름",
+            type: String = "COMPUTER",
+            id: Long? = null,
+        ): Book {
+            return Book(
+                name = name,
+                type = type,
+                id = id
+            )
         }
     }
 
