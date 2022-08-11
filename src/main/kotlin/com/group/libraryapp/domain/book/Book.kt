@@ -1,6 +1,8 @@
 package com.group.libraryapp.domain.book
 
 import javax.persistence.Entity
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
@@ -9,7 +11,8 @@ import javax.persistence.Id
 class Book(
     val name: String,
 
-    val type: String,
+    @Enumerated(EnumType.STRING)
+    val type: BookType,
 
     // 디폴트 파라미터는 관례상 가장 밑에 위치
     @Id
@@ -29,7 +32,7 @@ class Book(
         // -> 생겨난 테스트용 객체는 text fixture이라고 한다.
         fun fixture(
             name: String = "책 이름",
-            type: String = "COMPUTER",
+            type: BookType = BookType.COMPUTER,
             id: Long? = null,
         ): Book {
             return Book(
@@ -40,4 +43,12 @@ class Book(
         }
     }
 
+}
+
+enum class BookType {
+    COMPUTER,
+    ECONOMY,
+    SOCIETY,
+    LANGUAGE,
+    SCIENCE,
 }
