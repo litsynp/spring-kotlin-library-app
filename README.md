@@ -33,7 +33,7 @@ dependencies {
 ```
 
 1. `kotlin-jpa`: JPA에서 모든 entity는 `public` 또는 `protected`로 된 기본 생성자가 필요하다. 기본 생성자를 자동으로 추가하기 위해 no-arg 설정을 한다.
-2. `kotlin-spring`: Kotlin에서 모든 클래스나 메소드는 상속했을 때 오버라이드 할 수 없는 `final`로 지정된다. Spring에서는 런타임에 프록시 객체를 만들어 lazy loading을 수행하게 되는데, 그러기 위해선 원본 클래스를 오버라이드할 수 있도록 `open`을 붙여줘야 한다. all-open 설정으로 기본을 `open`으로 바꾼다. 또한, [`plugin.spring` 만으로는 모든 클래스를 `open`하게 만들어주지 않으므로](https://kotlinlang.org/docs/all-open-plugin.html#command-line-compiler), `@ManyToOne`에 대해서도 Proxy를 기반으로 원활히 lazy fetching을 수행할 수 있도록 `Entity`, `MappedSuperclass`, `Embeddable`에 대해서 `allOpen`을 명시적으로 지정함으로써 Entity 클래스에 대해서 decompile을 했을 때도 class가 열려있을 수 있도록 한다. 
+2. `kotlin-spring`: Kotlin에서 모든 클래스나 메소드는 상속했을 때 오버라이드 할 수 없는 `final`로 지정된다. Spring에서는 런타임에 프록시 객체를 만들어 lazy loading을 수행하게 되는데, 그러기 위해선 원본 클래스를 오버라이드할 수 있도록 `open`을 붙여줘야 한다. all-open 설정으로 기본을 `open`으로 바꾼다. 또한, [`plugin.spring` 만으로는 모든 클래스를 `open`하게 만들어주지 않으므로](https://kotlinlang.org/docs/all-open-plugin.html#spring-support), `@ManyToOne`에 대해서도 Proxy를 기반으로 원활히 lazy fetching을 수행할 수 있도록 `Entity`, `MappedSuperclass`, `Embeddable`에 대해서 `allOpen`을 명시적으로 지정함으로써 Entity 클래스에 대해서 decompile을 했을 때도 class가 열려있을 수 있도록 한다. 
 3. `kotlin-reflect`: Spring Framework 5부터 리플렉션을 추가해야 한다. Kotlin에서는 런타임 라이브러리 용량을 줄이기 위해 기본적으로 reflection을 제공하지 않는다. 직접 추가해준다. 
 4. `jackson-module-kotlin`: Kotlin에서 HTTP 요청을 보냈을 때 Spring에 내장된 Jackson 모듈이 Kotlin을 지원할 수 있도록 모듈을 추가한다.
 
